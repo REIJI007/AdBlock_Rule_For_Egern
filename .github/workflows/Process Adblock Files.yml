@@ -27,14 +27,20 @@ jobs:
       - name: Process files
         run: |
           import re
+          from datetime import datetime, timezone, timedelta
 
           def process_file(input_file, output_file):
+              # 获取东八区当前时间
+              tz = timezone(timedelta(hours=8))
+              current_time = datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
+
               # 文件开头的注释信息
               header = [
-                  "#Description: 适用于Egern的域名拦截模块，每20分钟更新一次，确保即时同步上游减少误杀\n",
+                  "# Description: 适用于Egern的域名拦截模块，每20分钟更新一次，确保即时同步上游减少误杀\n",
                   "# Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Egern\n",
                   "# LICENSE1：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-GPL3.0\n",
                   "# LICENSE2：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-CC%20BY-NC-SA%204.0\n",
+                  f"# Generated on: {current_time} (GMT+8)\n",
                   "\n"  # 添加一个空行
               ]
 
