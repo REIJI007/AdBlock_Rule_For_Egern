@@ -77,7 +77,7 @@ rules:
   *使用方式一：下载releases中的文件，修改Egern的yaml配置中的rules字段引用本地规则集作为域名拦截规则（需要手动下载更新）*
 
 
-  *使用方式二：将下面对应格式的配置文件中rules字段内容添加到你的配置文件充当远程规则集，需要特别注意配置文件的缩进和对齐（同步本仓库的云端部署的远程规则集配置)*
+  *使用方式二：将下面对应格式的配置文件中rules字段内容添加到你的配置文件充当远程规则集，需要特别注意配置文件的缩进和对齐（同步本仓库的云端部署的远程规则集配置)，也可写成调用模块的形式*
 <hr>
 
 
@@ -91,7 +91,6 @@ rules:
       policy: REJECT
       update_interval: 120
 ```
-
 ```conf
 #TEXT格式外部远程拦截域名规则集
 rules:
@@ -100,11 +99,24 @@ rules:
       policy: REJECT
       update_interval: 120
 ```
-
-
-
-
 <hr>
+```conf
+#YAML格式外部远程拦截域名模块
+modules:
+  - url: "https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Egern/main/adblock_reject_egern_module.yaml"
+    update_interval: 120
+    enabled: true
+```
+```conf
+#TXT格式外部远程拦截域名模块
+modules:
+  - url: "https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Egern/main/adblock_reject_egern_module.txt"
+    update_interval: 120
+    enabled: true
+```
+
+
+
 
 **五、关于本仓库的使用效果为什么没有普通广告过滤器效果好的疑问解答：**
 <br>
