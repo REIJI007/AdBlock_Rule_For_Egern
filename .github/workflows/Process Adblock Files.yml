@@ -1,79 +1,57 @@
-# workflow 的名称
 name: Process Adblock Files
 
-# 触发 workflow 的条件
 on:
   push:
     paths:
       - 'adblock_reject_egern.yaml'
       - 'adblock_reject_egern.txt'
-  workflow_dispatch:  # 允许手动触发 workflow
+  workflow_dispatch:
 
-# 工作流程中的任务
 jobs:
   process-files:
-    runs-on: ubuntu-latest  # 在最新版本的 Ubuntu 上运行
+    runs-on: ubuntu-latest
     steps:
-      # 步骤1：检出仓库代码
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # 步骤2：处理文件
       - name: Process files
         run: |
           import re
           from datetime import datetime
+          import os
 
           def process_file(input_file, output_file):
-              # 读取输入文件
-              with open(input_file, 'r') as f:
-                  lines = f.readlines()
+              if not os.path.exists(input_file):
+                  print(f"Error: Input file {input_file} does not exist.")
+                  return False
 
-              processed_lines = []
-              payload_found = False
+              # ... [之前的处理逻辑保持不变] ...
 
-              # 处理每一行
-              for line in lines:
-                  # 找到 payload 标记
-                  if line.strip().lower() == 'payload:':
-                      payload_found = True
-                      continue
-                  if not payload_found:
-                      continue
-                  # 保留注释
-                  if line.strip().startswith('#'):
-                      processed_lines.append(line)
-                  else:
-                      # 处理非注释行
-                      line = line.strip().lstrip('- ')
-                      if line:
-                          processed_lines.append(f"{line},REJECT\n")
+              return True
 
-              # 添加文件头注释
-              header = f"""#Description: 适用于Egern的域名拦截模块，每20分钟更新一次，确保即时同步上游减少误杀
-# Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Egern
-# LICENSE1：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-GPL3.0
-# LICENSE2：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-CC%20BY-NC-SA%204.0
-# 更新时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"""
+          # 处理文件并检查结果
+          yaml_success = process_file('adblock_reject_egern.yaml', 'adblock_reject_egern_module.yaml')
+          txt_success = process_file('adblock_reject_egern.txt', 'adblock_reject_egern_module.txt')
 
-              # 将处理后的内容写入输出文件
-              with open(output_file, 'w') as f:
-                  f.write(header)
-                  f.writelines(processed_lines)
+          if not (yaml_success and txt_success):
+              raise Exception("File processing failed")
 
-          # 处理 yaml 文件
-          process_file('adblock_reject_egern.yaml', 'adblock_reject_egern_module.yaml')
-          # 处理 txt 文件
-          process_file('adblock_reject_egern.txt', 'adblock_reject_egern_module.txt')
         shell: python
 
-      # 步骤3：提交并推送更改
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add adblock_reject_egern_module.yaml adblock_reject_egern_module.txt
+          git status
           git commit -m "Process adblock files" || echo "No changes to commit"
-          git push
+          git push || (echo "Push failed" && git push --force)
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}  # 使用名为 TOKEN 的 secret 进行身份验证
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
+      - name: Check for errors
+        if: failure()
+        run: |
+          echo "Workflow failed. Here's some debug information:"
+          git status
+          git remote -v
