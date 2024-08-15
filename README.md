@@ -100,6 +100,8 @@ rules:
       update_interval: 120
 ```
 <hr>
+<br>
+
 ```conf
 #YAML格式外部远程拦截域名模块
 modules:
