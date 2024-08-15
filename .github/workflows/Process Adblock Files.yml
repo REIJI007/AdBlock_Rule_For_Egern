@@ -22,6 +22,7 @@ jobs:
       - name: Process files
         run: |
           import re
+          from datetime import datetime
 
           def process_file(input_file, output_file):
               # 读取输入文件
@@ -48,8 +49,16 @@ jobs:
                       if line:
                           processed_lines.append(f"{line},REJECT\n")
 
+              # 添加文件头注释
+              header = f"""#Description: 适用于Egern的域名拦截模块，每20分钟更新一次，确保即时同步上游减少误杀
+# Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Egern
+# LICENSE1：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-GPL3.0
+# LICENSE2：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-CC%20BY-NC-SA%204.0
+# 更新时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"""
+
               # 将处理后的内容写入输出文件
               with open(output_file, 'w') as f:
+                  f.write(header)
                   f.writelines(processed_lines)
 
           # 处理 yaml 文件
