@@ -107,6 +107,7 @@ modules:
     update_interval: 120
     enabled: true
 ```
+
 ```conf
 #TXT格式外部远程拦截域名模块
 modules:
@@ -116,7 +117,7 @@ modules:
 ```
 
 
-
+<hr>
 
 **五、关于本仓库的使用效果为什么没有普通广告过滤器效果好的疑问解答：**
 <br>
