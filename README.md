@@ -75,14 +75,14 @@ rules:
       policy: REJECT
 ```
 ```conf
-#文本格式外部本地拦截域名模块
+#YAML格式外部本地拦截域名模块
 modules:
   - url: "C:\Users\YourUsername\Documents\file.yaml"
     enabled: true
 ```
 
 ```conf
-#TXT格式外部本地拦截域名模块
+#文本格式外部本地拦截域名模块
 modules:
   - url: "C:\Users\YourUsername\Documents\file.txt"
     enabled: true
@@ -116,7 +116,7 @@ rules:
       update_interval: 120
 ```
 ```conf
-#TEXT格式外部远程拦截域名规则集
+#文本格式外部远程拦截域名规则集
 rules:
   - rule_set:
       match: "https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Egern/main/adblock_reject_egern.txt"
@@ -134,7 +134,7 @@ modules:
 ```
 
 ```conf
-#TXT格式外部远程拦截域名模块
+#文本格式外部远程拦截域名模块
 modules:
   - url: "https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Egern/main/adblock_reject_egern_module.txt"
     update_interval: 120
