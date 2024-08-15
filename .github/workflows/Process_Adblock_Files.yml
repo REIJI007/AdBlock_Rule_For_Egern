@@ -47,6 +47,7 @@ jobs:
                   # 找到 payload 标记
                   if line.strip().lower() == 'payload:':
                       payload_found = True
+                      processed_lines.append("[rule]\n")  # 添加 [rule] 表头
                       continue
                   if not payload_found:
                       continue
