@@ -62,7 +62,7 @@ jobs:
 
               # 文件开头的注释信息
               header = [
-                  "#Description: 适用于Egern的域名拦截模块，每20分钟更新一次，确保即时同步上游减少误杀\n",
+                  "# Description: 适用于Egern的域名拦截模块，每20分钟更新一次，确保即时同步上游减少误杀\n",
                   "# Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Egern\n",
                   "# LICENSE1：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-GPL3.0\n",
                   "# LICENSE2：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-CC%20BY-NC-SA%204.0\n",
