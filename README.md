@@ -15,10 +15,10 @@
     <img src="https://img.shields.io/github/license/REIJI007/AdBlock_Rule_For_Egern" alt="license" style="margin-right: 10px;">
 </p>
 
-**一、从多个广告过滤器中提取拦截域名条目，删除重复项，并将它们转换为兼容Egern的payload列表格式，其中列表的每一项都写成了Matcher Ruleset格式数组，一行仅一条规则。该列表可以用作Egern的RULE-SET规则集，以阻止广告域名， powershell脚本每20分钟自动执行并将生成的文件发布在release中.五个文件的下载地址分别如下，其中adblock_reject_egern.yaml和adblock_reject_egern.txt是Matcher Ruleset格式数组构成的payload列表，adblock_reject_egern_module.yaml和adblock_reject_egern_module.txt这两个模块由adblock_reject_egern.yaml和adblock_reject_egern.txt经过处理得到**
+**一、从多个广告过滤器中提取拦截域名条目，删除重复项，并将它们转换为兼容Egern的payload列表格式，其中列表的每一项都写成了Matcher Ruleset格式数组，一行仅一条规则。该列表可以用作Egern的RULE-SET规则集，以阻止广告域名， powershell脚本每20分钟自动执行并将生成的文件发布在release中.四个文件的下载地址分别如下，其中adblock_reject_egern.yaml和adblock_reject_egern.txt是Matcher Ruleset格式数组构成的payload列表，adblock_reject_egern_module.yaml和adblock_reject_egern_module.txt这两个模块由adblock_reject_egern.yaml和adblock_reject_egern.txt经过处理得到**
 <br>
 <br>
-**适用于Clash的外部远程规则集**
+**适用于Egern的外部远程拦截域名规则集**
 <br>
 *1、YAML格式的外部远程拦截域名规则集 adblock_reject_egern.yaml* 
 <br>
@@ -27,13 +27,27 @@
 *https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Egern@main/adblock_reject_egern.yaml*
 <br>
 <br>
-
-
 *2、文本格式的外部远程拦截域名规则集 adblock_reject_egern.txt* 
 <br>
 *https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Egern/main/adblock_reject_egern.txt*
 <br>
 *https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Egern@main/adblock_reject_egern.txt*
+<br>
+<br>
+**适用于Egern的外部拦截域名模块**
+<br>
+*3、YAML格式的外部远程拦截域名模块 adblock_reject_egern_module.yaml* 
+<br>
+*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Egern/main/adblock_reject_egern_module.yaml*
+<br>
+*https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Egern@main/adblock_reject_egern_module.yaml*
+<br>
+<br>
+*4、文本格式的外部远程拦截域名模块 adblock_reject_egern_module.txt* 
+<br>
+*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Egern/main/adblock_reject_egern_module.txt*
+<br>
+*https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Egern@main/adblock_reject_egern_module.txt*
 <br>
 <br>
 
