@@ -1,55 +1,64 @@
+# workflow 的名称
 name: Process Adblock Files
 
+# 触发 workflow 的条件
 on:
   push:
     paths:
       - 'adblock_reject_egern.yaml'
       - 'adblock_reject_egern.txt'
-  workflow_dispatch:
+  workflow_dispatch:  # 允许手动触发 workflow
 
+# 工作流程中的任务
 jobs:
   process-files:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # 在最新版本的 Ubuntu 上运行
     steps:
+      # 步骤1：检出仓库代码
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-
+      # 步骤2：处理文件
       - name: Process files
         run: |
           import re
 
           def process_file(input_file, output_file):
+              # 读取输入文件
               with open(input_file, 'r') as f:
                   lines = f.readlines()
 
               processed_lines = []
               payload_found = False
 
+              # 处理每一行
               for line in lines:
+                  # 找到 payload 标记
                   if line.strip().lower() == 'payload:':
                       payload_found = True
                       continue
                   if not payload_found:
                       continue
+                  # 保留注释
                   if line.strip().startswith('#'):
                       processed_lines.append(line)
                   else:
+                      # 处理非注释行
                       line = line.strip().lstrip('- ')
                       if line:
                           processed_lines.append(f"{line},REJECT\n")
 
+              # 将处理后的内容写入输出文件
               with open(output_file, 'w') as f:
                   f.writelines(processed_lines)
 
+          # 处理 yaml 文件
           process_file('adblock_reject_egern.yaml', 'adblock_reject_egern_module.yaml')
+          # 处理 txt 文件
           process_file('adblock_reject_egern.txt', 'adblock_reject_egern_module.txt')
         shell: python
 
+      # 步骤3：提交并推送更改
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
@@ -58,4 +67,4 @@ jobs:
           git commit -m "Process adblock files" || echo "No changes to commit"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}  # 使用名为 TOKEN 的 secret 进行身份验证
