@@ -68,14 +68,14 @@ rules:
       policy: REJECT
 ```
 ```conf
-#TEXT格式外部本地拦截域名规则集
+#文本格式外部本地拦截域名规则集
 rules:
   - rule_set:
       match: "C:\Users\YourUsername\Documents\file.txt"
       policy: REJECT
 ```
 ```conf
-#YAML格式外部本地拦截域名模块
+#文本格式外部本地拦截域名模块
 modules:
   - url: "C:\Users\YourUsername\Documents\file.yaml"
     enabled: true
