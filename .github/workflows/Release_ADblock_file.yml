@@ -28,7 +28,7 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add -f adblock_reject_egern.yaml adblock_reject_egern.txt timestamp.txt
+          git add -f adblock_reject_egern.yaml adblock_reject_egern.txt adblock_reject_egern_module.yaml adblock_reject_egern_module.txt timestamp.txt
           git commit -m "Forced update of adblock files and timestamp"
           git push origin main --force
         env: 
@@ -66,4 +66,26 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./adblock_reject_egern.txt
           asset_name: adblock_reject_egern.txt
+          asset_content_type: text/plain
+
+      # 步骤8：上传 adblock_reject_egern_module.yaml
+      - name: Upload adblock_reject_egern_module.yaml
+        uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./adblock_reject_egern_module.yaml
+          asset_name: adblock_reject_egern_module.yaml
+          asset_content_type: application/x-yaml
+
+      # 步骤9：上传 adblock_reject_egern_module.txt
+      - name: Upload adblock_reject_egern_module.txt
+        uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./adblock_reject_egern_module.txt
+          asset_name: adblock_reject_egern_module.txt
           asset_content_type: text/plain
