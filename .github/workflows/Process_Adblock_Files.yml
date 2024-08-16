@@ -16,6 +16,7 @@ jobs:
           ref: main  # 确保检出主分支
 
       - name: Process files
+        shell: python3  # 使用 python3 解释器
         run: |
           import re
           from datetime import datetime, timezone, timedelta
