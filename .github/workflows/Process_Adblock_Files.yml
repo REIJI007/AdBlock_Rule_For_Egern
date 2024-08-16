@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          ref: main  # 检出指定的分支
 
       - name: Rename file extension
         run: |
@@ -27,9 +29,8 @@ jobs:
           git add adblock_reject_quantumult.txt
           git commit -m "Rename adblock_reject_quantumult.list to adblock_reject_quantumult.txt" || echo "No changes to commit"
           
-          # 确保在正确的分支上
+          # 拉取远程更改以确保与远程同步
           git fetch origin main
-          git checkout main || git checkout -b main
           git reset --hard origin/main
 
           # 强制推送更改
