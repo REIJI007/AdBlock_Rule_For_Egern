@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          ref: main  # 检出指定的分支
+          ref: main  # 确保检出主分支
 
       - name: List files for debugging
         run: |
@@ -35,13 +35,13 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
+
           git add adblock_reject_egern.txt
           git commit -m "Rename adblock_reject_egern.yaml to adblock_reject_egern.txt" || echo "No changes to commit"
-          
-          # 拉取远程更改以确保与远程同步
+
+          # 确保本地分支与远程分支同步
           git fetch origin main
           git reset --hard origin/main
 
           # 强制推送更改
-          git push --force "https://${TOKEN}@github.com/${{ github.repository }}.git" HEAD:main
+          git push --force "https://${TOKEN}@github.com/${{ github.repository }}.git" main
