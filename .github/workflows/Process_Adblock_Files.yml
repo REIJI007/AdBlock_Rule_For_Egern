@@ -15,124 +15,61 @@ jobs:
         with:
           ref: main  # 确保检出主分支
 
-      - name: List files for debugging
+      - name: Process files
         run: |
-          echo "Listing files in the repository:"
-          ls -la
+          import re
+          from datetime import datetime, timezone, timedelta
 
-      - name: Process adblock_reject_egern.yaml
-        run: |
-          python - <<EOF
-import re
-from datetime import datetime, timezone, timedelta
+          def process_file(input_file, output_file):
+              # 获取东八区当前时间
+              tz = timezone(timedelta(hours=8))
+              current_time = datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
 
-def process_file(input_file, output_file):
-    # 获取东八区当前时间
-    tz = timezone(timedelta(hours=8))
-    current_time = datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
+              # 读取输入文件
+              with open(input_file, 'r') as f:
+                  lines = f.readlines()
 
-    # 读取输入文件
-    with open(input_file, 'r') as f:
-        lines = f.readlines()
+              processed_lines = []
+              payload_found = False
+              item_count = 0  # 统计条目数量
 
-    processed_lines = []
-    payload_found = False
-    item_count = 0  # 统计条目数量
+              # 处理每一行
+              for line in lines:
+                  # 找到 payload 标记
+                  if line.strip().lower() == 'payload:':
+                      payload_found = True
+                      processed_lines.append("[rule]\n")  # 添加 [rule] 表头
+                      continue
+                  if not payload_found:
+                      continue
+                  # 保留注释
+                  if line.strip().startswith('#'):
+                      processed_lines.append(line)
+                  else:
+                      # 处理非注释行
+                      line = line.strip().lstrip('- ')
+                      if line:
+                          processed_lines.append(f"{line},REJECT\n")
+                          item_count += 1  # 统计条目
 
-    # 处理每一行
-    for line in lines:
-        # 找到 payload 标记
-        if line.strip().lower() == 'payload:':
-            payload_found = True
-            processed_lines.append("[rule]\n")  # 添加 [rule] 表头
-            continue
-        if not payload_found:
-            continue
-        # 保留注释
-        if line.strip().startswith('#'):
-            processed_lines.append(line)
-        else:
-            # 处理非注释行
-            line = line.strip().lstrip('- ')
-            if line:
-                processed_lines.append(f"{line},REJECT\n")
-                item_count += 1  # 统计条目
+              # 文件开头的注释信息
+              header = [
+                  f"# Description: 适用于Egern的域名拦截模块，每20分钟更新一次，确保即时同步上游减少误杀\n",
+                  "# Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Egern\n",
+                  "# LICENSE1：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-GPL3.0\n",
+                  "# LICENSE2：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-CC%20BY-NC-SA%204.0\n",
+                  f"# Generated on: {current_time} (GMT+8)\n",
+                  f"# Total items processed: {item_count}\n",
+                  "\n"  # 添加一个空行
+              ]
 
-    # 文件开头的注释信息
-    header = [
-        "# Description: 适用于Egern的域名拦截模块，每20分钟更新一次，确保即时同步上游减少误杀\n",
-        "# Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Egern\n",
-        "# LICENSE1：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-GPL3.0\n",
-        "# LICENSE2：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-CC%20BY-NC-SA%204.0\n",
-        f"# Generated on: {current_time} (GMT+8)\n",
-        f"# Total items processed: {item_count}\n",
-        "\n"  # 添加一个空行
-    ]
+              # 将头部注释和处理后的内容写入输出文件
+              with open(output_file, 'w') as f:
+                  f.writelines(header + processed_lines)
 
-    # 将头部注释和处理后的内容写入输出文件
-    with open(output_file, 'w') as f:
-        f.writelines(header + processed_lines)
-
-# 处理 yaml 文件
-process_file('adblock_reject_egern.yaml', 'adblock_reject_egern_module.yaml')
-EOF
-
-      - name: Process adblock_reject_egern.txt
-        run: |
-          python - <<EOF
-import re
-from datetime import datetime, timezone, timedelta
-
-def process_file(input_file, output_file):
-    # 获取东八区当前时间
-    tz = timezone(timedelta(hours=8))
-    current_time = datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
-
-    # 读取输入文件
-    with open(input_file, 'r') as f:
-        lines = f.readlines()
-
-    processed_lines = []
-    payload_found = False
-    item_count = 0  # 统计条目数量
-
-    # 处理每一行
-    for line in lines:
-        # 找到 payload 标记
-        if line.strip().lower() == 'payload:':
-            payload_found = True
-            processed_lines.append("[rule]\n")  # 添加 [rule] 表头
-            continue
-        if not payload_found:
-            continue
-        # 保留注释
-        if line.strip().startswith('#'):
-            processed_lines.append(line)
-        else:
-            # 处理非注释行
-            line = line.strip().lstrip('- ')
-            if line:
-                processed_lines.append(f"{line},REJECT\n")
-                item_count += 1  # 统计条目
-
-    # 文件开头的注释信息
-    header = [
-        "# Description: 适用于Egern的域名拦截模块，每20分钟更新一次，确保即时同步上游减少误杀\n",
-        "# Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Egern\n",
-        "# LICENSE1：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-GPL3.0\n",
-        "# LICENSE2：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-CC%20BY-NC-SA%204.0\n",
-        f"# Generated on: {current_time} (GMT+8)\n",
-        f"# Total items processed: {item_count}\n",
-        "\n"  # 添加一个空行
-    ]
-
-    # 将头部注释和处理后的内容写入输出文件
-    with open(output_file, 'w') as f:
-        f.writelines(header + processed_lines)
-
-# 处理 txt 文件
-process_file('adblock_reject_egern.txt', 'adblock_reject_egern_module.txt')
-EOF
+          # 一并处理 yaml 和 txt 文件
+          process_file('adblock_reject_egern.yaml', 'adblock_reject_egern_module.yaml')
+          process_file('adblock_reject_egern.txt', 'adblock_reject_egern_module.txt')
 
       - name: Commit and push changes
         env:
