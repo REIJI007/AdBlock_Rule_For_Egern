@@ -43,6 +43,15 @@ jobs:
             fi
           done
 
+          # 等待90秒后开始下一个工作流
+          echo "Waiting for 90 seconds before starting the next workflow..."
+          sleep 90
+
+
+
+
+        
+
   trigger_adblock_rule_generator_egern_txt:
     needs: trigger_adblock_rule_generator_egern_yaml
     runs-on: ubuntu-latest
@@ -81,6 +90,16 @@ jobs:
             fi
           done
 
+
+          # 等待90秒后开始下一个工作流
+          echo "Waiting for 90 seconds before starting the next workflow..."
+          sleep 90
+
+
+
+
+          
+
   trigger_process_adblock_files:
     needs: trigger_adblock_rule_generator_egern_txt
     runs-on: ubuntu-latest
@@ -118,6 +137,15 @@ jobs:
               sleep 30
             fi
           done
+
+          # 等待90秒后开始下一个工作流
+          echo "Waiting for 90 seconds before starting the next workflow..."
+          sleep 90
+
+
+
+
+          
 
   trigger_release_adblock_files:
     needs: trigger_process_adblock_files
