@@ -15,9 +15,19 @@ jobs:
         with:
           ref: main  # 检出指定的分支
 
+      - name: List files for debugging
+        run: |
+          echo "Listing files in the repository:"
+          ls -la
+
       - name: Rename file extension
         run: |
-          mv adblock_reject_quantumult.list adblock_reject_quantumult.txt
+          if [ -f adblock_reject_egern.yaml ]; then
+            mv adblock_reject_egern.yaml adblock_reject_egern.txt
+          else
+            echo "File adblock_reject_egern.yaml does not exist."
+            exit 1
+          fi
 
       - name: Commit and push changes
         env:
@@ -26,8 +36,8 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          git add adblock_reject_quantumult.txt
-          git commit -m "Rename adblock_reject_quantumult.list to adblock_reject_quantumult.txt" || echo "No changes to commit"
+          git add adblock_reject_egern.txt
+          git commit -m "Rename adblock_reject_egern.yaml to adblock_reject_egern.txt" || echo "No changes to commit"
           
           # 拉取远程更改以确保与远程同步
           git fetch origin main
