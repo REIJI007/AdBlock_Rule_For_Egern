@@ -182,10 +182,8 @@ modules:
 
 13、guandasheng (https://github.com/guandasheng/adguardhome)
 
-## License
-
-GNU GENERAL PUBLIC LICENSE Version 3
-
-Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)
+## LICENSE
+- [CC-BY-SA-4.0 License](https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-CC%20BY-NC-SA%204.0)
+- [GPL-3.0 License](https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-GPL3.0)
 
 
