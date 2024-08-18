@@ -104,10 +104,10 @@ $textContent = @"
 # Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Egern
 # LICENSE1：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-GPL3.0
 # LICENSE2：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-CC%20BY-NC-SA%204.0
-
 # Generated AdBlock rules
 # Generated on: $generatedTime (GMT+8)
 # Total entries: $ruleCount
+
 payload:
 $($formattedRules -join "`n")
 "@
