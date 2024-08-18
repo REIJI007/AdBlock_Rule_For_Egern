@@ -60,22 +60,22 @@ foreach ($url in $urlList) {
         foreach ($line in $lines) {
             # 匹配 Adblock/Easylist 格式的规则
             if ($line -match '^\|\|([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\^$') {
-                $domain = $Matches[1]
+                $domain = "DOMAIN,$($Matches[1])"
                 $uniqueRules.Add($domain) | Out-Null
             }
             # 匹配 Hosts 文件格式的规则
             elseif ($line -match '^(0\.0\.0\.0|127\.0\.0\.1)\s+([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$') {
-                $domain = $Matches[2]
+                $domain = "DOMAIN,$($Matches[2])"
                 $uniqueRules.Add($domain) | Out-Null
             }
             # 匹配 Dnsmasq/AdGuard 格式的规则
             elseif ($line -match '^address=/([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/$') {
-                $domain = $Matches[1]
+                $domain = "DOMAIN,$($Matches[1])"
                 $uniqueRules.Add($domain) | Out-Null
             }
             # 匹配通配符匹配格式的规则
             elseif ($line -match '^\|\|([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\^$') {
-                $domain = $Matches[1]
+                $domain = "DOMAIN,$($Matches[1])"
                 $uniqueRules.Add($domain) | Out-Null
             }
         }
@@ -86,9 +86,8 @@ foreach ($url in $urlList) {
     }
 }
 
-
 # 对规则进行排序并添加前缀
-$formattedRules = $uniqueRules | Sort-Object | ForEach-Object {"DOMAIN,$_"}
+$formattedRules = $uniqueRules | Sort-Object | ForEach-Object { "  - $_" }
 
 # 统计生成的规则条目数量
 $ruleCount = $uniqueRules.Count
@@ -109,7 +108,9 @@ $textContent = @"
 # Generated on: $generatedTime (GMT+8)
 # Total entries: $ruleCount
 
-
+payload:
+$($formattedRules -join "`n")
+"@
 
 # 定义输出文件路径
 $outputPath = "$PSScriptRoot/adblock_reject_egern.txt"
