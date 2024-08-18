@@ -35,8 +35,7 @@ $urlList = @(
     "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_11_Mobile/filter.txt",
     "https://raw.githubusercontent.com/AdguardTeam/FiltersRegistry/master/filters/filter_15_DnsFilter/filter.txt",
     "https://raw.githubusercontent.com/Lynricsy/HyperADRules/master/rules.txt",
-    "https://raw.githubusercontent.com/Lynricsy/HyperADRules/master/dns.txt",
-    "https://raw.githubusercontent.com/guandasheng/adguardhome/main/rule/all.txt"
+    "https://raw.githubusercontent.com/Lynricsy/HyperADRules/master/dns.txt"
 )
 
 # 日志文件路径
@@ -60,22 +59,22 @@ foreach ($url in $urlList) {
         foreach ($line in $lines) {
             # 匹配 Adblock/Easylist 格式的规则
             if ($line -match '^\|\|([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\^$') {
-                $domain = "DOMAIN,$($Matches[1])"
+                $domain = $Matches[1]
                 $uniqueRules.Add($domain) | Out-Null
             }
             # 匹配 Hosts 文件格式的规则
             elseif ($line -match '^(0\.0\.0\.0|127\.0\.0\.1)\s+([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$') {
-                $domain = "DOMAIN,$($Matches[2])"
+                $domain = $Matches[2]
                 $uniqueRules.Add($domain) | Out-Null
             }
             # 匹配 Dnsmasq/AdGuard 格式的规则
             elseif ($line -match '^address=/([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/$') {
-                $domain = "DOMAIN,$($Matches[1])"
+                $domain = $Matches[1]
                 $uniqueRules.Add($domain) | Out-Null
             }
             # 匹配通配符匹配格式的规则
             elseif ($line -match '^\|\|([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\^$') {
-                $domain = "DOMAIN,$($Matches[1])"
+                $domain = $Matches[1]
                 $uniqueRules.Add($domain) | Out-Null
             }
         }
@@ -87,7 +86,7 @@ foreach ($url in $urlList) {
 }
 
 # 对规则进行排序并添加前缀
-$formattedRules = $uniqueRules | Sort-Object | ForEach-Object { "  - $_" }
+$formattedRules = $uniqueRules | Sort-Object | ForEach-Object { "DOMAIN,$_" }
 
 # 统计生成的规则条目数量
 $ruleCount = $uniqueRules.Count
@@ -108,12 +107,11 @@ $textContent = @"
 # Generated on: $generatedTime (GMT+8)
 # Total entries: $ruleCount
 
-payload:
 $($formattedRules -join "`n")
 "@
 
 # 定义输出文件路径
-$outputPath = "$PSScriptRoot/adblock_reject_egern.txt"
+$outputPath = "$PSScriptRoot/adblock_reject.txt"
 $textContent | Out-File -FilePath $outputPath -Encoding utf8
 
 # 输出生成的有效规则总数
