@@ -2,6 +2,6 @@
 # Homepage: https://github.com/REIJI007/AdBlock_Rule_For_Egern
 # LICENSE1：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-GPL3.0
 # LICENSE2：https://github.com/REIJI007/AdBlock_Rule_For_Egern/blob/main/LICENSE-CC%20BY-NC-SA%204.0
-# Generated on: 2024-08-23 03:28:58 (GMT+8)
+# Generated on: 2024-08-23 03:48:59 (GMT+8)
 # Total items processed: 0
 
