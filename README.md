@@ -55,19 +55,6 @@ rules:
       match: "C:\Users\YourUsername\Documents\file.txt"
       policy: REJECT
 ```
-```conf
-#YAML格式外部本地拦截域名模块
-modules:
-  - url: "C:\Users\YourUsername\Documents\file.yaml"
-    enabled: true
-```
-
-```conf
-#文本格式外部本地拦截域名模块
-modules:
-  - url: "C:\Users\YourUsername\Documents\file.txt"
-    enabled: true
-```
 
 <hr>
 
