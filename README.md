@@ -15,7 +15,7 @@
     <img src="https://img.shields.io/github/license/REIJI007/AdBlock_Rule_For_Egern" alt="license" style="margin-right: 10px;">
 </p>
 
-**一、从多个广告过滤器中提取拦截域名条目，删除重复项，并将它们转换为兼容Egern的payload列表格式，其中列表的每一项都写成了Matcher Ruleset格式数组，一行仅一条规则。该列表可以用作Egern的RULE-SET规则集，以阻止广告域名， powershell脚本每20分钟自动执行并将生成的文件发布在release中.四个文件的下载地址分别如下，其中adblock_reject_egern.yaml和adblock_reject_egern.txt是Matcher Ruleset格式数组构成的payload列表，adblock_reject_egern_module.yaml和adblock_reject_egern_module.txt这两个模块由adblock_reject_egern.yaml和adblock_reject_egern.txt经过处理得到**
+**一、从多个广告过滤器中提取拦截域名条目，删除重复项，并将它们转换为兼容Egern的payload列表格式，其中列表的每一项都写成了Matcher Ruleset格式数组，一行仅一条规则。该列表可以用作Egern的RULE-SET规则集，以阻止广告域名， powershell脚本每20分钟自动执行并将生成的文件发布在release中.两个文件的下载地址分别如下，其中adblock_reject_egern.yaml和adblock_reject_egern.txt是Matcher Ruleset格式数组构成的域名列表**
 <br>
 <br>
 **适用于Egern的外部远程拦截域名规则集**
@@ -34,31 +34,12 @@
 *https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Egern@main/adblock_reject_egern.txt*
 <br>
 <br>
-**适用于Egern的外部拦截域名模块**
-<br>
-*3、YAML格式的外部远程拦截域名模块 adblock_reject_egern_module.yaml* 
-<br>
-*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Egern/main/adblock_reject_egern_module.yaml*
-<br>
-*https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Egern@main/adblock_reject_egern_module.yaml*
-<br>
-<br>
-*4、文本格式的外部远程拦截域名模块 adblock_reject_egern_module.txt* 
-<br>
-*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Egern/main/adblock_reject_egern_module.txt*
-<br>
-*https://cdn.jsdelivr.net/gh/REIJI007/AdBlock_Rule_For_Egern@main/adblock_reject_egern_module.txt*
-<br>
-<br>
 
 **二、理论上任何代理拦截域名且符合广告过滤器过滤语法的列表订阅URL都可加入此powershell脚本处理，请自行酌情添加过滤器订阅URL至adblock_rule_generator_egern_yaml.ps1或者adblock_rule_generator_egern_txt.ps1脚本中进行处理，你可将该脚本代码复制到本地文本编辑器制作成.ps1后缀的文件运行在powershell上，注意修改生成的yaml文件路径，最后在Egern的yaml配置中实现调用本地生成的yaml文件，且Egern配置字段写成类似于如下两个例子**
 <br>
 <br>
 *简而言之就是可以让你DIY出希望得到的拦截域名payload列表，缺点是此做法只适合本地定制使用，当然你也可以像本仓库一样部署到GitHub上面，见仁见智*
 <hr>
-
-
-
 
 ```conf
 #YAML格式外部本地拦截域名规则集
@@ -87,8 +68,6 @@ modules:
   - url: "C:\Users\YourUsername\Documents\file.txt"
     enabled: true
 ```
-
-
 
 <hr>
 
@@ -123,25 +102,6 @@ rules:
       policy: REJECT
       update_interval: 120
 ```
-<hr>
-
-```conf
-#YAML格式外部远程拦截域名模块
-modules:
-  - url: "https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Egern/main/adblock_reject_egern_module.yaml"
-    update_interval: 120
-    enabled: true
-```
-
-```conf
-#文本格式外部远程拦截域名模块
-modules:
-  - url: "https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Egern/main/adblock_reject_egern_module.txt"
-    update_interval: 120
-    enabled: true
-```
-
-
 <hr>
 
 **五、关于本仓库的使用效果为什么没有普通广告过滤器效果好的疑问解答：**
