@@ -176,7 +176,6 @@ foreach ($url in $urlList) {
 $finalRules = $uniqueRules | Where-Object { -not $excludedDomains.Contains($_) }
 
 
-
 # 对规则进行排序并添加前缀
 $formattedRules = $uniqueRules | Sort-Object | ForEach-Object { "  - $_ " }
 
