@@ -26,14 +26,14 @@
     <td>YAML</td>
     <td>
       <strong><a href="https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Egern/main/adblock_reject_egern.yaml">原始链接</a></strong> | 
-      <strong><a href="https://adblockproxy.miyajimareji007.workers.dev/clash_adblock.yaml">Cloudflare加速链接</a></strong>
+      <strong><a href="https://adblockproxy.miyajimareji007.workers.dev/egern_adblock.yaml">Cloudflare加速链接</a></strong>
     </td>
   </tr>
   <tr>
     <td>TXT</td>
     <td>
-      <strong><a href="https://adblockproxy.miyajimareji007.workers.dev/egern_adblock.yaml">原始链接</a></strong> | 
-      <strong><a href="https://adblockproxy.miyajimareji007.workers.dev/surge_adblock.txt">Cloudflare加速链接</a></strong>
+      <strong><a href="https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Egern/main/adblock_reject_egern.txt">原始链接</a></strong> | 
+      <strong><a href="https://adblockproxy.miyajimareji007.workers.dev/egern_adblock.txt">Cloudflare加速链接</a></strong>
     </td>
   </tr>
 </table>
