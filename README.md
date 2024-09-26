@@ -18,18 +18,25 @@
 **一、从多个广告过滤器中提取拦截域名条目，删除重复项，并将它们转换为兼容Egern的payload列表格式，其中列表的每一项都写成了Matcher Ruleset格式数组，一行仅一条规则。该列表可以用作Egern的RULE-SET规则集，以阻止广告域名， powershell脚本每20分钟自动执行并将生成的文件发布在release中.两个文件的下载地址分别如下，其中adblock_reject_egern.yaml和adblock_reject_egern.txt是Matcher Ruleset格式数组构成的域名列表**
 <br>
 <br>
-**适用于Egern的外部远程拦截域名规则集**
-<br>
-*1、YAML格式的外部远程拦截域名规则集 adblock_reject_egern.yaml* 
-<br>
-*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Egern/main/adblock_reject_egern.yaml*
-<br>
-<br>
-*2、文本格式的外部远程拦截域名规则集 adblock_reject_egern.txt* 
-<br>
-*https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Egern/main/adblock_reject_egern.txt*
-<br>
-<br>
+<table border="1" style="border-collapse: collapse; width: 100%;">
+  <tr>
+    <td>订阅地址:</td>
+  </tr>
+  <tr>
+    <td>YAML</td>
+    <td>
+      <strong><a href="https://raw.githubusercontent.com/REIJI007/AdBlock_Rule_For_Egern/main/adblock_reject_egern.yaml">原始链接</a></strong> | 
+      <strong><a href="https://adblockproxy.miyajimareji007.workers.dev/clash_adblock.yaml">Cloudflare加速链接</a></strong>
+    </td>
+  </tr>
+  <tr>
+    <td>TXT</td>
+    <td>
+      <strong><a href="https://adblockproxy.miyajimareji007.workers.dev/egern_adblock.yaml">原始链接</a></strong> | 
+      <strong><a href="https://adblockproxy.miyajimareji007.workers.dev/surge_adblock.txt">Cloudflare加速链接</a></strong>
+    </td>
+  </tr>
+</table>
 
 <hr>
 
