@@ -185,7 +185,8 @@ rules:
 (https://adblockultimate.net/filters)<br>
 35、RPiList
 (https://github.com/RPiList/specials)<br>
-
+36、adaway
+(https://github.com/AdAway/AdAway)<br>
 
 
 ## LICENSE
